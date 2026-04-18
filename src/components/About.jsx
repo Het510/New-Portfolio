@@ -1,10 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { personalInfo } from '../data/portfolioData';
 
-// SVG Icons
 const GithubIcon = ({ size = 20 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
     <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
@@ -36,9 +35,19 @@ const LeetcodeIcon = ({ size = 20 }) => (
 );
 
 const stats = [
-  { value: '10+', label: 'Projects Built',       icon: '🚀' },
-  { value: '10+', label: 'Technologies',         icon: '💻' },
-  { value: '2+',  label: 'Years Coding',         icon: '⚡' },
+  { value: '10+', label: 'Projects Built', tone: 'teal' },
+  { value: '10+', label: 'Tools and Tech', tone: 'cyan' },
+  { value: '2+', label: 'Years Building', tone: 'gold' },
+];
+
+const focusAreas = ['Full Stack Builds', 'UI Motion', 'Hackathons', 'Creative Frontend'];
+
+const socialLinks = [
+  { label: 'GitHub', icon: <GithubIcon />, href: personalInfo.socials.github, tone: 'teal' },
+  { label: 'LinkedIn', icon: <LinkedinIcon />, href: personalInfo.socials.linkedin, tone: 'cyan' },
+  { label: 'YouTube', icon: <YoutubeIcon />, href: personalInfo.socials.youtube, tone: 'gold' },
+  { label: 'LeetCode', icon: <LeetcodeIcon />, href: personalInfo.socials.leetcode, tone: 'gold' },
+  { label: 'Twitter', icon: <TwitterIcon />, href: personalInfo.socials.twitter, tone: 'neutral' },
 ];
 
 const About = () => {
@@ -51,151 +60,110 @@ const About = () => {
 
   useGSAP(() => {
     const tl = gsap.timeline({
-      scrollTrigger: { trigger: container.current, start: 'top bottom', once: true }
+      scrollTrigger: { trigger: container.current, start: 'top bottom', once: true },
     });
-    tl.from('.about-label',      { y: 20, opacity: 0, duration: 0.5, ease: 'power3.out' })
-      .from('.about-heading',    { y: 25, opacity: 0, duration: 0.7, ease: 'power3.out' }, '-=0.3')
-      .from('.about-bio p',      { y: 15, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' }, '-=0.4')
-      .from('.about-socials-btn',{ scale: 0.9, opacity: 0, duration: 0.5, stagger: 0.08, ease: 'back.out(2)' }, '-=0.3')
-      .from('.about-stat',       { y: 24, opacity: 0, scale: 0.92, duration: 0.6, stagger: 0.1, ease: 'back.out(1.5)' }, '-=0.2');
+
+    tl.from('.about-label', { y: 20, opacity: 0, duration: 0.5, ease: 'power3.out' })
+      .from('.about-heading', { y: 25, opacity: 0, duration: 0.7, ease: 'power3.out' }, '-=0.3')
+      .from('.about-bio p', { y: 15, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' }, '-=0.4')
+      .from('.about-socials-btn', { scale: 0.94, opacity: 0, duration: 0.45, stagger: 0.08, ease: 'back.out(2)' }, '-=0.25')
+      .from('.about-spotlight', { x: 40, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.45')
+      .from('.about-stat', { y: 24, opacity: 0, scale: 0.94, duration: 0.55, stagger: 0.08, ease: 'back.out(1.4)' }, '-=0.35')
+      .from('.about-chip', { y: 12, opacity: 0, duration: 0.35, stagger: 0.04, ease: 'power2.out' }, '-=0.3');
   }, { scope: container });
 
   return (
     <div ref={container} className="container section" id="about-inner">
-
-      {/* Label */}
       <div style={{ marginBottom: '0.75rem' }}>
         <div className="about-label section-label">About Me</div>
       </div>
 
-      {/* Heading */}
-      <h2 className="about-heading section-heading" style={{ maxWidth: '640px', marginBottom: '3.5rem' }}>
+      <h2 className="about-heading section-heading about-heading-limit">
         Crafting Digital <span className="italic-violet">Experiences.</span>
       </h2>
 
-      {/* Layout: Content on Left, Stats on Right (or stacked on mobile) */}
-      <div style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: '4rem',
-        alignItems: 'flex-start',
-      }}>
-
-        {/* Bio + Socials */}
-        <div style={{ flex: '1 1 500px' }}>
-          <div className="about-bio" style={{ color: 'var(--text-secondary)', lineHeight: 1.9, marginBottom: '2.5rem' }}>
-            <p style={{ marginBottom: '1.2rem', fontSize: '1rem' }}>
+      <div className="about-layout">
+        <div className="about-copy">
+          <div className="about-bio">
+            <p>
               I'm{' '}
-              <strong style={{
-                fontWeight: 700,
-                background: 'linear-gradient(135deg, var(--violet-1), var(--cyan-1))',
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              }}>
+              <strong className="about-name-highlight">
                 Het Rathod
               </strong>
-              , a passionate Full Stack Developer from India who loves building
-              beautiful, performant web applications that make a real impact.
+              , a passionate Full Stack Developer from India who loves building beautiful,
+              performant web applications that make a real impact.
             </p>
-            <p style={{ marginBottom: '1.2rem', fontSize: '1rem' }}>
+            <p>
               My journey started with curiosity about how things work on the web. Today I specialize
-              in crafting seamless user experiences with React, Node.js, and modern
-              web technologies — plus pixel-perfect UI clones that sharpen my eye for detail.
+              in crafting seamless user experiences with React, Node.js, and modern web technologies,
+              plus pixel-perfect UI clones that sharpen my eye for detail.
             </p>
-            <p style={{ fontSize: '1rem' }}>
-              When I'm not coding, I participate in hackathons, contribute to open source, and
-              explore the latest in UI/UX design. I believe great software is a perfect blend of{' '}
-              <em style={{ color: 'var(--violet-1)', fontStyle: 'normal', fontWeight: 600 }}>
-                logic and artistry
-              </em>.
+            <p>
+              When I'm not coding, I participate in hackathons, contribute to open source, and explore
+              the latest in UI/UX design. I believe great software is a perfect blend of{' '}
+              <span className="about-emphasis">logic and artistry</span>.
             </p>
           </div>
 
-          {/* Social Buttons */}
-          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-            <a href={personalInfo.socials.github} target="_blank" rel="noopener noreferrer" className="about-socials-btn btn" style={{
-              background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.2)', padding: '0.6rem 1.1rem', color: 'var(--violet-1)'
-            }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(20,184,166,0.18)'} onMouseLeave={e => e.currentTarget.style.background = 'rgba(20,184,166,0.08)'}>
-              <GithubIcon /> GitHub
-            </a>
-            <a href={personalInfo.socials.linkedin} target="_blank" rel="noopener noreferrer" className="about-socials-btn btn" style={{
-              background: 'rgba(34,211,238,0.08)', border: '1px solid rgba(34,211,238,0.2)', padding: '0.6rem 1.1rem', color: 'var(--cyan-1)'
-            }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(34,211,238,0.18)'} onMouseLeave={e => e.currentTarget.style.background = 'rgba(34,211,238,0.08)'}>
-              <LinkedinIcon /> LinkedIn
-            </a>
-            <a href={personalInfo.socials.youtube} target="_blank" rel="noopener noreferrer" className="about-socials-btn btn" style={{
-              background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', padding: '0.6rem 1.1rem', color: '#f87171'
-            }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(239,68,68,0.18)'} onMouseLeave={e => e.currentTarget.style.background = 'rgba(239,68,68,0.08)'}>
-              <YoutubeIcon /> YouTube
-            </a>
-            <a href={personalInfo.socials.leetcode} target="_blank" rel="noopener noreferrer" className="about-socials-btn btn" style={{
-              background: 'rgba(251,191,36,0.08)', border: '1px solid rgba(251,191,36,0.2)', padding: '0.6rem 1.1rem', color: 'var(--gold-1)'
-            }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(251,191,36,0.18)'} onMouseLeave={e => e.currentTarget.style.background = 'rgba(251,191,36,0.08)'}>
-              <LeetcodeIcon /> LeetCode
-            </a>
-            <a href={personalInfo.socials.twitter} target="_blank" rel="noopener noreferrer" className="about-socials-btn btn" style={{
-              background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', padding: '0.6rem 1.1rem', color: 'var(--text-primary)'
-            }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'} onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.04)'}>
-              <TwitterIcon /> Twitter
-            </a>
+          <div className="about-socials-row">
+            {socialLinks.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`about-socials-btn about-socials-btn-${item.tone}`}
+              >
+                {item.icon}
+                {item.label}
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Stats grid (Right side) */}
-        <div style={{
-          flex: '1 1 300px',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '1.25rem',
-        }}>
-          {stats.map(stat => (
-            <div
-              key={stat.label}
-              className="about-stat"
-              style={{
-                padding: '1.75rem 1.25rem',
-                background: 'rgba(139,92,246,0.04)',
-                border: '1px solid rgba(139,92,246,0.15)',
-                borderRadius: '16px',
-                transition: 'all 0.35s cubic-bezier(0.34,1.56,0.64,1)',
-                textAlign: 'center',
-                cursor: 'default',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.borderColor = 'rgba(167,139,250,0.4)';
-                e.currentTarget.style.background = 'rgba(139,92,246,0.08)';
-                e.currentTarget.style.transform = 'translateY(-6px) scale(1.02)';
-                e.currentTarget.style.boxShadow = '0 12px 30px rgba(124,58,237,0.15)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.borderColor = 'rgba(139,92,246,0.15)';
-                e.currentTarget.style.background = 'rgba(139,92,246,0.04)';
-                e.currentTarget.style.transform = 'none';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              <div style={{ fontSize: '1.8rem', marginBottom: '0.6rem' }}>{stat.icon}</div>
-              <div style={{
-                fontFamily: 'Playfair Display, serif',
-                fontSize: '2.4rem', fontWeight: 800,
-                background: 'linear-gradient(135deg, var(--violet-1), var(--cyan-1))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                lineHeight: 1,
-              }}>
-                {stat.value}
-              </div>
-              <div style={{
-                fontSize: '0.75rem', color: 'var(--text-muted)',
-                marginTop: '0.5rem', fontWeight: 600,
-                textTransform: 'uppercase', letterSpacing: '0.1em',
-              }}>
-                {stat.label}
-              </div>
+        <div className="about-spotlight glass-card">
+          <div className="about-spotlight-orb" />
+
+          <div className="about-spotlight-top">
+            <div>
+              <div className="about-spotlight-kicker">Creative Developer Mode</div>
+              <h3 className="about-spotlight-title">Designing interfaces with energy, rhythm, and edge.</h3>
             </div>
-          ))}
-        </div>
+            <div className="about-availability-pill">Open to freelance work</div>
+          </div>
 
+          <div className="about-spotlight-grid">
+            {stats.map((stat) => (
+              <div key={stat.label} className={`about-stat about-stat-${stat.tone}`}>
+                <div className="about-stat-value">{stat.value}</div>
+                <div className="about-stat-label">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="about-quote-card">
+            <div className="about-quote-mark">"</div>
+            <p>
+              I like products that feel fast, clear, and a little unforgettable.
+            </p>
+          </div>
+
+          <div className="about-focus">
+            <div className="about-focus-label">Current Focus</div>
+            <div className="about-focus-chips">
+              {focusAreas.map((item) => (
+                <span key={item} className="about-chip">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="about-footer-line">
+            <span>{personalInfo.location}</span>
+            <span>Building from India for global clients</span>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ export const personalInfo = {
   photo: "",
   email: "hetrathod49@gmail.com",
   phone: "+91 9979612044",
+  location: "Gandhinagar, Gujrat",
   resumeLink: "https://drive.google.com/file/d/1IEfoVJ6w0WxyqxtKYU8qYKqiGG9d-EYu/view?usp=sharing",
   socials: {
     github:   "https://github.com/Het510",
