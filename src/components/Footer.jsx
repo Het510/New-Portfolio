@@ -1,7 +1,7 @@
 import React from 'react';
 import { personalInfo } from '../data/portfolioData';
 import { ExternalLink } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // Inline brand SVGs
 const GithubIcon = ({ size = 18 }) => (
@@ -54,9 +54,20 @@ const socials = [
 ];
 
 const Footer = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const scrollTo = (href) => {
+    if (location.pathname !== '/') {
+      navigate({ pathname: '/', hash: href });
+      return;
+    }
+
     const el = document.querySelector(href);
-    if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
   };
 
   return (

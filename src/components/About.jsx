@@ -41,6 +41,7 @@ const stats = [
 ];
 
 const focusAreas = ['Full Stack Builds', 'UI Motion', 'Hackathons', 'Creative Frontend'];
+const signalLines = ['React + Node', 'Motion Systems', 'Pixel Precision', 'Rapid Shipping'];
 
 const socialLinks = [
   { label: 'GitHub', icon: <GithubIcon />, href: personalInfo.socials.github, tone: 'teal' },
@@ -123,6 +124,12 @@ const About = () => {
 
         <div className="about-spotlight glass-card">
           <div className="about-spotlight-orb" />
+          <div className="about-spotlight-gridlines" />
+          <div className="about-spotlight-rings">
+            <span />
+            <span />
+            <span />
+          </div>
 
           <div className="about-spotlight-top">
             <div>
@@ -148,6 +155,23 @@ const About = () => {
             </p>
           </div>
 
+          <div className="about-signal-board">
+            <div className="about-signal-board-copy">
+              <span className="about-signal-label">Visual Pulse</span>
+              <strong>Turning blank space into brand presence.</strong>
+            </div>
+            <div className="about-signal-wave">
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+          </div>
+
           <div className="about-focus">
             <div className="about-focus-label">Current Focus</div>
             <div className="about-focus-chips">
@@ -157,6 +181,14 @@ const About = () => {
                 </span>
               ))}
             </div>
+          </div>
+
+          <div className="about-signal-ticker">
+            {signalLines.map((item) => (
+              <span key={item} className="about-signal-pill">
+                {item}
+              </span>
+            ))}
           </div>
 
           <div className="about-footer-line">

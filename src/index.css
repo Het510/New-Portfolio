@@ -550,7 +550,7 @@ input::placeholder, textarea::placeholder { color: var(--text-muted); }
   background:
     radial-gradient(circle at top right, rgba(34, 211, 238, 0.16), transparent 34%),
     radial-gradient(circle at bottom left, rgba(20, 184, 166, 0.12), transparent 38%),
-    rgba(255, 255, 255, 0.04);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(8, 12, 18, 0.78));
 }
 
 .about-spotlight-orb {
@@ -565,6 +565,49 @@ input::placeholder, textarea::placeholder { color: var(--text-muted); }
   filter: blur(6px);
   opacity: 0.9;
   pointer-events: none;
+}
+
+.about-spotlight-gridlines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.06) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7), transparent 88%);
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.about-spotlight-rings {
+  position: absolute;
+  right: -1rem;
+  top: 3.5rem;
+  width: 210px;
+  height: 210px;
+  pointer-events: none;
+}
+
+.about-spotlight-rings span {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 20px rgba(34, 211, 238, 0.05);
+}
+
+.about-spotlight-rings span:nth-child(1) {
+  transform: scale(1);
+}
+
+.about-spotlight-rings span:nth-child(2) {
+  transform: scale(0.75);
+  border-color: rgba(20, 184, 166, 0.18);
+}
+
+.about-spotlight-rings span:nth-child(3) {
+  transform: scale(0.48);
+  border-color: rgba(251, 191, 36, 0.24);
 }
 
 .about-spotlight-top,
@@ -686,6 +729,61 @@ input::placeholder, textarea::placeholder { color: var(--text-muted); }
   margin-bottom: 1.4rem;
 }
 
+.about-signal-board {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 150px;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(34, 211, 238, 0.14);
+  background: rgba(6, 10, 16, 0.72);
+}
+
+.about-signal-board-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.about-signal-board-copy strong {
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.about-signal-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--cyan-1);
+}
+
+.about-signal-wave {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  align-items: end;
+  gap: 0.35rem;
+  height: 52px;
+}
+
+.about-signal-wave span {
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--gold-1), var(--violet-1), var(--cyan-1));
+  opacity: 0.9;
+}
+
+.about-signal-wave span:nth-child(1) { height: 18%; }
+.about-signal-wave span:nth-child(2) { height: 48%; }
+.about-signal-wave span:nth-child(3) { height: 78%; }
+.about-signal-wave span:nth-child(4) { height: 36%; }
+.about-signal-wave span:nth-child(5) { height: 92%; }
+.about-signal-wave span:nth-child(6) { height: 58%; }
+.about-signal-wave span:nth-child(7) { height: 28%; }
+.about-signal-wave span:nth-child(8) { height: 66%; }
+
 .about-focus-label {
   margin-bottom: 0.8rem;
   font-size: 0.78rem;
@@ -710,6 +808,27 @@ input::placeholder, textarea::placeholder { color: var(--text-muted); }
   background: rgba(20, 184, 166, 0.08);
   color: var(--text-primary);
   font-size: 0.82rem;
+}
+
+.about-signal-ticker {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1.3rem;
+}
+
+.about-signal-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
 }
 
 .about-footer-line {
@@ -755,6 +874,9 @@ input::placeholder, textarea::placeholder { color: var(--text-muted); }
     flex-direction: column;
   }
   .about-spotlight-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-signal-board {
     grid-template-columns: 1fr;
   }
   .about-socials-row {

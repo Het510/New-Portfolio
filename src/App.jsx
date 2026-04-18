@@ -17,6 +17,7 @@ import Certificates from './components/Certificates';
 import Hackathons from './components/Hackathons';
 import Contact from './components/Contact';
 import ResumeViewer from './components/ResumeViewer';
+import Achievements from './components/Achievements';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,6 +44,7 @@ const HomePage = () => (
     <section id="projects"><Projects /></section>
     <section id="certificates"><Certificates /></section>
     <section id="hackathons"><Hackathons /></section>
+    <section id="achievements"><Achievements /></section>
     <section id="contact"><Contact /></section>
   </PageWrapper>
 );
@@ -62,8 +64,19 @@ function LenisProvider() {
   const location = useLocation();
 
   useEffect(() => {
-    // Scroll to top on route change
-    window.scrollTo(0, 0);
+    const scrollToHashTarget = () => {
+      if (!location.hash) {
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      const el = document.querySelector(location.hash);
+      if (!el) return;
+
+      const navOffset = 80;
+      const top = el.getBoundingClientRect().top + window.scrollY - navOffset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    };
 
     const lenis = new Lenis({
       duration: 0.9,
@@ -80,12 +93,15 @@ function LenisProvider() {
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => { lenis.raf(time * 1000); });
 
+    const hashTimer = window.setTimeout(scrollToHashTarget, 160);
+
     return () => {
+      window.clearTimeout(hashTimer);
       lenisInstance = null;
       lenis.destroy();
       gsap.ticker.remove((time) => { lenis.raf(time * 1000); });
     };
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   return null;
 }
