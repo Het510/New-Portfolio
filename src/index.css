@@ -1,0 +1,453 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap');
+
+/* ============================================================
+   TEAL PROFESSIONAL THEME — Clean & Premium Portfolio 2026
+   ============================================================ */
+
+:root {
+  /* === BACKGROUNDS === */
+  --bg-primary:   #0B0F14;
+  --bg-secondary: #0e1420;
+  --bg-card:      #111820;
+  --bg-glass:     rgba(20, 184, 166, 0.04);
+
+  /* === TEXT === */
+  --text-primary:   #e8f4f3;
+  --text-secondary: #7a9e9b;
+  --text-muted:     #2e4d4a;
+
+  /* === TEAL (primary accent) === */
+  --violet-1: #14B8A6;
+  --violet-2: #0d9488;
+  --violet-3: #0f766e;
+  --violet-glow: rgba(20, 184, 166, 0.25);
+
+  /* === CYAN (secondary accent) === */
+  --cyan-1: #22D3EE;
+  --cyan-2: #06b6d4;
+  --cyan-glow: rgba(34, 211, 238, 0.2);
+
+  /* === WARM GOLD (headings / tertiary) === */
+  --gold-1: #fbbf24;
+  --gold-2: #f59e0b;
+  --gold-3: #d97706;
+  --gold-gradient: linear-gradient(135deg, #f59e0b, #fbbf24, #fde68a, #fbbf24);
+  --gold-gradient-text: linear-gradient(135deg, #f59e0b 0%, #fbbf24 40%, #fde68a 70%, #f59e0b 100%);
+
+  /* === GRADIENTS === */
+  --hero-grad: linear-gradient(135deg, #0d9488 0%, #14B8A6 40%, #22D3EE 100%);
+  --card-grad: linear-gradient(135deg, rgba(13,148,136,0.12) 0%, rgba(34,211,238,0.06) 100%);
+
+  /* === BORDERS === */
+  --border-subtle:  rgba(20, 184, 166, 0.12);
+  --border-violet:  rgba(20, 184, 166, 0.35);
+  --border-gold:    rgba(251, 191, 36, 0.25);
+  --border-cyan:    rgba(34, 211, 238, 0.25);
+
+  /* === GLASS === */
+  --glass-bg:     rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(20, 184, 166, 0.14);
+  --shadow-violet: 0 0 40px rgba(13, 148, 136, 0.2), 0 0 80px rgba(13, 148, 136, 0.07);
+  --shadow-gold:   0 0 30px rgba(251, 191, 36, 0.15);
+  --shadow-cyan:   0 0 30px rgba(34, 211, 238, 0.15);
+
+  /* === FONTS === */
+  --font-serif:   'Playfair Display', Georgia, serif;
+  --font-sans:    'Inter', sans-serif;
+  --font-display: 'Syne', sans-serif;
+
+  /* === RADIUS & TRANSITIONS === */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --spring:     all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+
+
+/* ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scrolling */
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+  touch-action: pan-y;
+}
+
+/* Noise texture overlay for depth */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+section { contain: layout style; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+a { text-decoration: none; color: inherit; transition: var(--transition); }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section { padding: 120px 0; }
+
+/* ============================================================
+   SECTION LABELS & HEADINGS
+   ============================================================ */
+.section-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--violet-1);
+  margin-bottom: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--violet-2), var(--cyan-1));
+  border-radius: 2px;
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.italic-gold {
+  font-style: italic;
+  background: var(--gold-gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.italic-violet {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--violet-1) 0%, var(--cyan-1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   GLASS CARDS — Electric style
+   ============================================================ */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer line top */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--violet-1), var(--cyan-1), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--border-violet);
+  box-shadow: var(--shadow-violet);
+  transform: translateY(-6px);
+}
+
+.glass-card:hover::before { opacity: 1; }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: var(--font-display);
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  letter-spacing: 0.04em;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ripple shine */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.btn:hover::after { transform: translateX(100%); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--violet-2), var(--violet-1), var(--cyan-2));
+  color: #fff;
+  box-shadow: 0 4px 24px rgba(124, 58, 237, 0.4);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 40px rgba(124, 58, 237, 0.6), 0 0 20px rgba(34, 211, 238, 0.2);
+  transform: translateY(-3px) scale(1.02);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--violet-1);
+  border: 1px solid var(--border-violet);
+}
+
+.btn-outline:hover {
+  background: rgba(167, 139, 250, 0.08);
+  border-color: var(--violet-1);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 0.5rem 1.4rem;
+  font-size: 0.85rem;
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+  border-color: var(--border-violet);
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.btn-ghost.active {
+  background: linear-gradient(135deg, var(--violet-2), var(--violet-1));
+  color: #fff;
+  border-color: transparent;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+}
+
+/* ============================================================
+   FORM INPUTS
+   ============================================================ */
+input, textarea, select {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  background: rgba(139, 92, 246, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--border-violet);
+  background: rgba(139, 92, 246, 0.07);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+input::placeholder, textarea::placeholder { color: var(--text-muted); }
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--violet-2), var(--cyan-2));
+  border-radius: 10px;
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.gold-text {
+  background: var(--gold-gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.violet-text {
+  background: linear-gradient(135deg, var(--violet-1), var(--cyan-1));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(167, 139, 250, 0.08);
+  color: var(--violet-1);
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  transition: var(--transition);
+}
+
+.tag:hover {
+  background: rgba(167, 139, 250, 0.16);
+  transform: scale(1.05);
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+  margin: 2rem 0;
+}
+
+/* Glowing dot */
+.glow-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e, 0 0 16px rgba(34,197,94,0.4);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.4); opacity: 0.7; }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-10px) rotate(1deg); }
+  66%       { transform: translateY(-5px) rotate(-1deg); }
+}
+
+@keyframes typing-cursor {
+  0%, 100% { border-color: transparent; }
+  50%       { border-color: var(--violet-1); }
+}
+
+@keyframes glow-pulse-violet {
+  0%, 100% { box-shadow: 0 0 10px rgba(124,58,237,0.2); }
+  50%       { box-shadow: 0 0 30px rgba(124,58,237,0.5), 0 0 60px rgba(34,211,238,0.15); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes border-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Magnetic hover class (add to links/buttons for extra feel) */
+.magnetic {
+  transition: var(--spring);
+}
+.magnetic:hover {
+  transform: scale(1.08) translateY(-2px);
+}
+
+/* Card hover lift */
+.hover-lift {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: var(--shadow-violet);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .section { padding: 100px 0; }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 80px 0; }
+  .container { padding: 0 1.25rem; }
+  .desktop-only { display: none !important; }
+  .section-heading { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+}
+
+@media (max-width: 480px) {
+  .section { padding: 60px 0; }
+}
